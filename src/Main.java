@@ -9,12 +9,16 @@ public class Main {
         Connection connect = null;
         String insertSql ="SELECT * FROM employees";
         try {
+            // Veritabanına bağlan
             connect = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
+            // Statement nesnesini oluştur
             Statement statement = connect.createStatement();
             System.out.println(statement.executeQuery(insertSql));
-            ResultSet data = statement.executeQuery(insertSql); //kayıt sorgulama
+            // SQL sorgusunu çalıştır ve sonuç kümesini al
+            ResultSet data = statement.executeQuery(insertSql);
             while (data.next()){
+                // Her bir sütunu al ve ekrana yazdır
                 System.out.println("ID : " + data.getInt("id"));
                 System.out.println("Ad : " + data.getString("name"));
                 System.out.println("Pozisyon : " + data.getString("position"));
@@ -23,6 +27,7 @@ public class Main {
 
             }
 
+            // Hata durumunda hata mesajını ekrana yazdır
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
